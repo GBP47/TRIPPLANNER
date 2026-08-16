@@ -21,7 +21,7 @@ export default function SaveImageButton({ targetRef }) {
     <button
       type="button"
       onClick={handleClick}
-      className="w-full rounded-lg border border-gray-300 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
+      className="w-full rounded-full border border-teal-200 bg-white py-3 text-sm font-semibold text-teal-700 shadow-sm transition hover:bg-teal-50"
     >
       이미지로 저장
     </button>

@@ -24,14 +24,17 @@ export default function TripInputForm() {
   }
 
   return (
-    <div className="flex min-h-screen items-start justify-center bg-gray-50 px-4 py-10">
+    <div className="flex min-h-screen items-start justify-center bg-gradient-to-br from-teal-50 via-white to-coral-50 px-4 py-10 sm:py-16">
       {generating && <LoadingOverlay message="AI가 여행 일정을 만들고 있어요..." />}
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-2xl space-y-8 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-8"
+        className="w-full max-w-2xl space-y-8 rounded-[28px] border border-white bg-white/90 p-6 shadow-xl shadow-teal-900/10 ring-1 ring-teal-900/5 backdrop-blur-sm sm:p-10"
       >
         <div>
-          <h1 className="mb-1 text-2xl font-semibold text-gray-900">여행 일정 생성기</h1>
+          <span className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-teal-50 px-3 py-1 text-xs font-medium text-teal-700">
+            ✈️ AI 여행 플래너
+          </span>
+          <h1 className="mb-1.5 text-3xl font-bold tracking-tight text-gray-900">여행 일정 생성기</h1>
           <p className="text-sm text-gray-500">취향을 알려주시면 AI가 맞춤 일정을 만들어드려요.</p>
         </div>
 
@@ -40,7 +43,10 @@ export default function TripInputForm() {
         <BasicInfoFields />
 
         <section>
-          <h2 className="mb-3 text-sm font-semibold text-gray-900">여행 스타일</h2>
+          <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900">
+            <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+            여행 스타일
+          </h2>
           <PreferenceSliders />
         </section>
 
@@ -50,19 +56,25 @@ export default function TripInputForm() {
         </section>
 
         <section>
-          <h2 className="mb-3 text-sm font-semibold text-gray-900">테마 비중</h2>
+          <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900">
+            <span className="h-1.5 w-1.5 rounded-full bg-coral-500" />
+            테마 비중
+          </h2>
           <ThemeSliders />
         </section>
 
         <section>
-          <h2 className="mb-2 text-sm font-semibold text-gray-900">동행</h2>
+          <h2 className="mb-2 flex items-center gap-2 text-sm font-semibold text-gray-900">
+            <span className="h-1.5 w-1.5 rounded-full bg-teal-500" />
+            동행
+          </h2>
           <CompanionSelect />
         </section>
 
         <button
           type="submit"
           disabled={!canSubmit || generating}
-          className="w-full rounded-lg bg-indigo-600 py-3 font-medium text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full rounded-full bg-gradient-to-r from-teal-500 to-coral-500 py-3.5 font-semibold text-white shadow-lg shadow-coral-500/25 transition hover:shadow-xl hover:shadow-coral-500/30 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none"
         >
           {generating ? '생성 중...' : '일정 만들기'}
         </button>

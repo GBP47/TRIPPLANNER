@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --color-coral-50: #fff4ef;
+  --color-coral-100: #ffe3d6;
+  --color-coral-200: #ffc5ac;
+  --color-coral-300: #ffa47d;
+  --color-coral-400: #ff9166;
+  --color-coral-500: #ff7f50;
+  --color-coral-600: #f2643a;
+  --color-coral-700: #d14d28;
+  --color-coral-800: #a83c1f;
+  --color-coral-900: #7f2e18;
+}
+
 html,
 body,
 #root {
@@ -8,9 +21,14 @@ body,
 
 body {
   margin: 0;
+  background-color: #f7fbfa;
 }
 
 .leaflet-container {
   width: 100%;
   height: 100%;
+}
+
+::selection {
+  background-color: var(--color-teal-200);
 }

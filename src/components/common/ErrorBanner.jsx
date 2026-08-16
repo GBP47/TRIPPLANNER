@@ -1,6 +1,6 @@
 export default function ErrorBanner({ message, onRetry }) {
   return (
-    <div className="flex items-center justify-between gap-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700">
+    <div className="flex items-center justify-between gap-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-red-700">
       <span className="text-sm">{message}</span>
       {onRetry && (
         <button

@@ -8,16 +8,16 @@ export default function DayTabs() {
   if (!itinerary) return null
 
   return (
-    <div className="mb-4 flex gap-2 border-b border-gray-200">
+    <div className="mb-4 flex flex-wrap gap-1.5 rounded-full bg-teal-50/70 p-1.5">
       {itinerary.days.map((day) => (
         <button
           key={day.day}
           type="button"
           onClick={() => setSelectedDay(day.day)}
-          className={`border-b-2 px-4 py-2 text-sm font-medium transition ${
+          className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
             selectedDay === day.day
-              ? 'border-indigo-600 text-indigo-600'
-              : 'border-transparent text-gray-500 hover:text-gray-700'
+              ? 'bg-white text-teal-700 shadow-sm shadow-teal-900/10'
+              : 'text-gray-500 hover:text-teal-700'
           }`}
         >
           Day {day.day}

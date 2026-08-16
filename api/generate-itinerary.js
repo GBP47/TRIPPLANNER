@@ -8,12 +8,12 @@ import {
 } from '../src/lib/promptBuilder.js'
 import { parseItinerary, parseReplacementPlace } from '../src/lib/itinerarySchema.js'
 
-async function generateWithRetry({ system, userPrompt, maxTokens, parse }) {
-  let text = await callClaude({ system, userPrompt, maxTokens })
+async function generateWithRetry({ system, userPrompt, maxTokens, parse, timeoutMs }) {
+  let text = await callClaude({ system, userPrompt, maxTokens, timeoutMs })
   let parsed = parse(extractJson(text))
 
   if (!parsed.success) {
-    text = await callClaude({ system, userPrompt: buildRetryUserPrompt(userPrompt), maxTokens })
+    text = await callClaude({ system, userPrompt: buildRetryUserPrompt(userPrompt), maxTokens, timeoutMs })
     parsed = parse(extractJson(text))
   }
 
@@ -47,6 +47,7 @@ export default async function handler(req, res) {
         userPrompt,
         maxTokens: 512,
         parse: parseReplacementPlace,
+        timeoutMs: 15000,
       })
 
       if (!parsed.success) {
@@ -70,6 +71,7 @@ export default async function handler(req, res) {
       userPrompt,
       maxTokens: 4096,
       parse: parseItinerary,
+      timeoutMs: 25000,
     })
 
     if (!parsed.success) {
