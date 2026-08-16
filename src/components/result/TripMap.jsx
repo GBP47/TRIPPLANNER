@@ -42,7 +42,7 @@ export default function TripMap() {
       .map(({ place, index }) => ({
         position: [place.coords.lat, place.coords.lon],
         number: index + 1,
-        name: place.name,
+        name: place.name_ko,
       }))
   }, [day])
 

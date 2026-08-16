@@ -20,7 +20,7 @@ export default function PlaceCard({ day, index, place, isLast, travelTimeSeconds
               {index + 1}
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">{place.name}</h3>
+              <h3 className="font-semibold text-gray-900">{place.name_ko}</h3>
               <p className="mt-0.5 text-sm text-gray-500">{place.description}</p>
               <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-400">
                 <span>체류 {formatMinutes(place.durationMinutes)}</span>

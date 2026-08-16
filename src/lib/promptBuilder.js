@@ -10,7 +10,8 @@ const JSON_INSTRUCTIONS = `
       "day": 1,
       "places": [
         {
-          "name": "장소명 (실제 존재하는 구체적인 상호/명소명)",
+          "name_ko": "장소명 (한국어 표시용, 실제 존재하는 구체적인 상호/명소명)",
+          "name_local": "장소가 위치한 국가의 현지어 공식 명칭 (지오코딩용)",
           "category": "food|nature|historyCulture|shopping|cafeHealing|activity 중 하나",
           "durationMinutes": 90,
           "description": "한 줄 설명 (한국어, 40자 이내)",
@@ -21,7 +22,9 @@ const JSON_INSTRUCTIONS = `
   ]
 }
 
-- name은 지오코딩이 가능하도록 실제 존재하는 장소의 정확한 이름으로 작성하세요.
+- name_ko는 사용자에게 보여줄 한국어 이름입니다. 실제 존재하는 구체적인 상호/명소명을 쓰세요.
+- name_local은 지오코딩(지도 검색)에 사용됩니다. 장소가 위치한 국가의 "현지어 공식 표기"를 그대로 쓰세요 (영어 번역 금지). 현지어 표기가 확실하지 않을 때만 예외적으로 영어 표기를 쓰세요.
+  예: 스페인 바르셀로나 대성당 → name_ko="바르셀로나 대성당", name_local="Catedral de Barcelona". 일본 도쿄타워 → name_ko="도쿄타워", name_local="東京タワー".
 - estimatedCost는 1인 기준 원화(KRW) 정수로, 입장료/식비/체험비 등을 현실적으로 추정하세요. 무료 장소는 0.
 - days 배열의 길이는 요청받은 여행 일수와 정확히 같아야 합니다.
 `.trim()
@@ -82,7 +85,7 @@ export function buildRetryUserPrompt(previousUserPrompt) {
 }
 
 export function buildReplacementSystemPrompt() {
-  return `당신은 실제 현지 사정에 밝은 여행 플래너입니다. 기존 일정 중 한 곳을 대체할 장소 하나를 JSON으로만 제안합니다.\n\n반드시 아래 스키마의 객체 "하나만" 출력하세요. 마크다운, 설명, 추가 텍스트 금지. 첫 글자는 "{", 마지막 글자는 "}".\n\n{\n  "name": "장소명 (실제 존재하는 구체적인 상호/명소명)",\n  "category": "food|nature|historyCulture|shopping|cafeHealing|activity 중 하나",\n  "durationMinutes": 90,\n  "description": "한 줄 설명 (한국어, 40자 이내)",\n  "estimatedCost": 15000\n}`
+  return `당신은 실제 현지 사정에 밝은 여행 플래너입니다. 기존 일정 중 한 곳을 대체할 장소 하나를 JSON으로만 제안합니다.\n\n반드시 아래 스키마의 객체 "하나만" 출력하세요. 마크다운, 설명, 추가 텍스트 금지. 첫 글자는 "{", 마지막 글자는 "}".\n\n{\n  "name_ko": "장소명 (한국어 표시용, 실제 존재하는 구체적인 상호/명소명)",\n  "name_local": "장소가 위치한 국가의 현지어 공식 명칭 (지오코딩용, 영어 번역 금지, 불확실할 때만 영어 대체)",\n  "category": "food|nature|historyCulture|shopping|cafeHealing|activity 중 하나",\n  "durationMinutes": 90,\n  "description": "한 줄 설명 (한국어, 40자 이내)",\n  "estimatedCost": 15000\n}`
 }
 
 export function buildReplacementUserPrompt({ input, targetPlace, excludeNames }) {
@@ -96,7 +99,7 @@ export function buildReplacementUserPrompt({ input, targetPlace, excludeNames })
 - 예산 수준: ${budgetLabel(budget)}
 - 이동수단: ${transportLabel(transport)}
 - 테마 비중 (0~100): ${themeWeightsText(themes)}
-- 대체할 장소: "${targetPlace.name}" (카테고리: ${targetPlace.category ?? '미상'})
+- 대체할 장소: "${targetPlace.name_ko}" (카테고리: ${targetPlace.category ?? '미상'})
 
 아래 장소들은 이미 이번 여행 전체 일정에 포함되어 있으니 절대 다시 제안하지 마세요:
 ${excludeNames.map((n) => `- ${n}`).join('\n')}

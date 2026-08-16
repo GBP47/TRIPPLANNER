@@ -24,7 +24,7 @@ export function useGeocoding() {
     itinerary.days.forEach((day) => {
       day.places.forEach((place, index) => {
         if (place.geocodeStatus === 'pending') {
-          targets.push({ day: day.day, index, name: place.name })
+          targets.push({ day: day.day, index, nameLocal: place.name_local })
         }
       })
     })
@@ -42,7 +42,7 @@ export function useGeocoding() {
         if (cancelled || runIdRef.current !== runId) return
         const target = targets[i]
 
-        const cached = getCachedCoords(target.name, city)
+        const cached = getCachedCoords(target.nameLocal, city)
         if (cached) {
           updatePlaceGeocode(target.day, target.index, cached.found ? { lat: cached.lat, lon: cached.lon } : null)
           done += 1
@@ -51,8 +51,8 @@ export function useGeocoding() {
         }
 
         try {
-          const result = await geocodePlace(`${target.name}, ${city}`)
-          setCachedCoords(target.name, city, result)
+          const result = await geocodePlace(`${target.nameLocal}, ${city}`)
+          setCachedCoords(target.nameLocal, city, result)
           if (!cancelled && runIdRef.current === runId) {
             updatePlaceGeocode(target.day, target.index, result.found ? { lat: result.lat, lon: result.lon } : null)
           }

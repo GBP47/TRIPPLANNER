@@ -1,7 +1,8 @@
 import { z } from 'zod'
 
 export const placeSchema = z.object({
-  name: z.string().min(1),
+  name_ko: z.string().min(1),
+  name_local: z.string().min(1),
   category: z.string().optional(),
   durationMinutes: z.number().int().positive(),
   description: z.string().min(1),

@@ -17,7 +17,7 @@ export const defaultInput = {
 
 function withPlaceDefaults(place, day, index) {
   return {
-    id: `${day}-${index}-${place.name}`,
+    id: `${day}-${index}-${place.name_ko}`,
     ...place,
     coords: null,
     geocodeStatus: 'pending',
@@ -92,7 +92,7 @@ export const useTripStore = create((set, get) => ({
   getAllPlaceNames: () => {
     const itinerary = get().itinerary
     if (!itinerary) return []
-    return itinerary.days.flatMap((d) => d.places.map((p) => p.name))
+    return itinerary.days.flatMap((d) => d.places.map((p) => p.name_ko))
   },
 
   reset: () =>
