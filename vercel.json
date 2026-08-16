@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/generate-itinerary.js": { "maxDuration": 30 },
+    "api/geocode.js": { "maxDuration": 10 },
+    "api/route.js": { "maxDuration": 15 }
+  }
+}
